@@ -3,6 +3,7 @@
 Exercise 1 Solution
 
 Original Dockerfile:
+
 ![alt text](image.png)
 
 
