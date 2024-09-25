@@ -4,7 +4,7 @@ Exercise 1 Solution
 
 Original Dockerfile:
 
-![alt text](image.png)
+![alt text](image.png)    <br>
 
 
 
@@ -21,7 +21,7 @@ I optimized the provided Dockerfile by improving its efficiency, security, and r
 - Efficient use of pre-built Rust tools to eliminate the need for downloading dependencies
 - Smaller base images for a more efficient and lightweight Docker build
 
-![alt text](image-1.png)
+![alt text](image-1.png)    <br>
 
 
 Exercise 2 Solution
@@ -65,11 +65,11 @@ Enhancements:
 
 AWS Architecture Diagram:
 
-![alt text](image-2.png)
+![alt text](image-2.png)    <br>
 
 Terraform Plan Diagram: 
  
-![alt text](image-3.png)
+![alt text](image-3.png)    <br>
 
 
 
@@ -86,7 +86,7 @@ https://github.com/florin721/technical-assessment.git
 
 Clone the following repository and open it in your preferred code editor:
 
-![alt text](image-4.png)
+![alt text](image-4.png)    <br>
  
 Access Public Docker Hub Registry:
 For exercise 1, we have built the docker image using the dockerfile inside the GitHub repository, it contains the rust hello world application. Docker image:
@@ -101,23 +101,24 @@ Using the exercise 2 docker image, create a docker container:
 docker run -it florin721/terraform-aws-k8s-env
 If the image is not present locally, it will pull it from the docker hub public registry:
 
-![alt text](image-5.png)
+![alt text](image-5.png)    <br>
  
 
-!!!!!!!!!!!!!!!!!!!!!!!!!!!!!                            IMPORTANT                                   !!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!                            IMPORTANT                                   !!!!!!!!!!!!!!!!!!!!!!!!!!!!! <br>
 Once you are inside the container, you will need to run the following command to configure access to AWS: 
 aws configure
 
-![alt text](image-6.png)
+![alt text](image-6.png)    <br>
  
-NOTE: The Key ID and Access key above are for example purposes, they are not active anymore. Please create your own Access Key ID and Secret access key by creating a AWS IAM User.
+NOTE: The Key ID and Access key above are for example purposes, they are not active anymore. Please create your own Access Key ID and Secret access key by creating a AWS IAM User. <br>
+Please add eu-west-2 as region <br>
 
-!!!!!!!!!!!!!!!!!!!!!!!!!!!!!                            IMPORTANT                                   !!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!                            IMPORTANT                                   !!!!!!!!!!!!!!!!!!!!!!!!!!!!! <br>
 Please make sure you have run the aws configure command before proceeding forwards.
 
 Once AWS is configured, you can run the deploy.sh file: 
 
-![alt text](image-7.png)
+![alt text](image-7.png)    <br>
  
 This will build all the infrastructure in main.tf, then deploy the application and service from deploy.yaml.
 
@@ -125,7 +126,7 @@ The ./deploy.sh command will run for about 10-15 minutes
 
 Do not stop the script until you see the following message:  
 
-![alt text](image-8.png)
+![alt text](image-8.png)    <br>
 Once you can see “Deployment complete! Your app should now be available on the EKS cluster” , means that all the infrastructure has been deployed , and the service and applications are deployed on the EKS cluster too.
 
 To confirm this , run the following commands inside the docker image:
@@ -133,40 +134,40 @@ kubectl get pods -n opendelta
 kubectl get svc -n opendelta
 You should see the following:
 
-![alt text](image-9.png)
+![alt text](image-9.png)    <br>
  
 
 Now please Navigate to your AWS Management Console, and select Region EU-WEST-2:
 
- ![alt text](image-10.png)
+ ![alt text](image-10.png)    <br>
 
 Now please Navigate to EC2:  
 
-![alt text](image-11.png)
+![alt text](image-11.png)    <br>
 
 And go to Load Balancers section:
 
-![alt text](image-12.png)
+![alt text](image-12.png)    <br>
 
  You should be able to see an Application Load Balancer named k8s-load-balancer, please copy the DNS name.
 
 Once you have copied the DNS name, enter it in your browser: 
 
-![alt text](image-13.png)
+![alt text](image-13.png)    <br>
 
 After giving 5 minutes to the target groups to register, you can follow the ALB DNS in your browser ,  you will be able to see the Hello World application with a 200 response:
 
-![alt text](image-14.png)
+![alt text](image-14.png)    <br>
  
 
 If you are not able to see the above, please monitor the target group attached to the ALB:
 
-![alt text](image-15.png)
+![alt text](image-15.png)    <br>
  
 
 Please Ensure All registered targets have a Healthy status:  
 
-![alt text](image-16.png)
+![alt text](image-16.png)    <br>
 
 If they do not have a Healthy Status, please consider Degistering them and registering them as targets again on port 30080.
 
