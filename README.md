@@ -24,7 +24,7 @@ I optimized the provided Dockerfile by improving its efficiency, security, and r
 ![alt text](image-1.png)    <br>
 
 
-Exercise 2 Solution
+Exercise 2 Solution <br>
 Current Infrastructure:
 - VPC with two public subnets across different availability zones 
 - EC2 instances running the applications 
@@ -32,8 +32,8 @@ Current Infrastructure:
 - Security Group allowing HTTP traffic 
 - Simple deployment using user data script on EC2 instances
 
-Proposed Improved Infrastructure
-The aim of this improvement is to modernize the infrastructure while ensuring high availability, security, scalability, and cost-efficiency. Below are the enhancements made:
+Proposed Improved Infrastructure <br>
+The aim of this improvement is to modernize the infrastructure while ensuring high availability, security, scalability, and cost-efficiency. Below are the enhancements made: <br>
 - Kubernetes
   - The application is deployed on an EKS cluster, this provides a scalable, highly available environment.
   - The EKS cluster is deployed across multiple private subnets in three availability zones to ensure high availability and fault tolerance
@@ -52,18 +52,18 @@ The aim of this improvement is to modernize the infrastructure while ensuring hi
 - Cost Efficiency:
   - I have added auto-scaling groups, so the architecture can scale automatically based on demand, reducing costs when the load is low.
 
-Assumptions:
+Assumptions:<br>
 - The traffic load is expected to grow over time, requiring a scalable infrastructure.
 - For this exercise/demo purpose, the application uses HTTP traffic, in a development/ production environment, we can add AWS ACM certificates to the load balancers for HTTPS traffic.
 - The architecture needs to be highly available, across multiple AZ’s.
 - The application is deployed as a type Deployment, if the application requires to be Stateful, we can change the type to Stateful Set and add a Persistent Volume Claim to the stateful Set.
 - I have assumed the application will be deployed in EU-WEST-2 region.
 
-Enhancements:
+Enhancements:<br>
 - You can integrate a CI/CD pipeline for automated integration and deployments.
 - You can integrate Logging & Monitoring using AWS CloudWatch/Prometheus/Grafana/
 
-AWS Architecture Diagram:
+AWS Architecture Diagram:<br>
 
 ![alt text](image-2.png)    <br>
 
@@ -78,35 +78,35 @@ Terraform Plan Diagram:
 
 
 
-How to run 
+How to run <br>
 
-Access Public GitHub Repository
-I have uploaded the code to this GitHub repository:
-https://github.com/florin721/technical-assessment.git
+Access Public GitHub Repository   <br>
+I have uploaded the code to this GitHub repository:   <br>
+https://github.com/florin721/technical-assessment.git   <br>
 
-Clone the following repository and open it in your preferred code editor:
+Clone the following repository and open it in your preferred code editor:   <br>
 
 ![alt text](image-4.png)    <br>
  
-Access Public Docker Hub Registry:
-For exercise 1, we have built the docker image using the dockerfile inside the GitHub repository, it contains the rust hello world application. Docker image:
+Access Public Docker Hub Registry:   <br>
+For exercise 1, we have built the docker image using the dockerfile inside the GitHub repository, it contains the rust hello world application. Docker image:    <br>
 https://hub.docker.com/repository/docker/florin721/rust_sample_app/general
 
-For exercise 2, I have built a docker image which contains all the tools needed to run the deploy.sh file and create the infrastructure on your AWS account. Docker image:
+For exercise 2, I have built a docker image which contains all the tools needed to run the deploy.sh file and create the infrastructure on your AWS account.  <br> Docker image:    <br>
 https://hub.docker.com/repository/docker/florin721/terraform-aws-k8s-env/general
 
-Running deploy.sh 
+Running deploy.sh     <br>
 
-Using the exercise 2 docker image, create a docker container:
-docker run -it florin721/terraform-aws-k8s-env
-If the image is not present locally, it will pull it from the docker hub public registry:
+Using the exercise 2 docker image, create a docker container:   <br>
+docker run -it florin721/terraform-aws-k8s-env    <br>
+If the image is not present locally, it will pull it from the docker hub public registry:    <br>
 
 ![alt text](image-5.png)    <br>
  
 
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!                            IMPORTANT                                   !!!!!!!!!!!!!!!!!!!!!!!!!!!!! <br>
-Once you are inside the container, you will need to run the following command to configure access to AWS: 
-aws configure
+Once you are inside the container, you will need to run the following command to configure access to AWS:     <br>
+aws configure    <br>
 
 ![alt text](image-6.png)    <br>
  
@@ -114,34 +114,34 @@ NOTE: The Key ID and Access key above are for example purposes, they are not act
 Please add eu-west-2 as region <br>
 
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!                            IMPORTANT                                   !!!!!!!!!!!!!!!!!!!!!!!!!!!!! <br>
-Please make sure you have run the aws configure command before proceeding forwards.
+Please make sure you have run the aws configure command before proceeding forwards.   <br>
 
-Once AWS is configured, you can run the deploy.sh file: 
+Once AWS is configured, you can run the deploy.sh file:    <br>
 
 ![alt text](image-7.png)    <br>
  
-This will build all the infrastructure in main.tf, then deploy the application and service from deploy.yaml.
+This will build all the infrastructure in main.tf, then deploy the application and service from deploy.yaml.   <br>
 
-The ./deploy.sh command will run for about 10-15 minutes
+The ./deploy.sh command will run for about 10-15 minutes   <br>
 
-Do not stop the script until you see the following message:  
+Do not stop the script until you see the following message:     <br>
 
 ![alt text](image-8.png)    <br>
-Once you can see “Deployment complete! Your app should now be available on the EKS cluster” , means that all the infrastructure has been deployed , and the service and applications are deployed on the EKS cluster too.
+Once you can see “Deployment complete! Your app should now be available on the EKS cluster” , means that all the infrastructure has been deployed , and the service and applications are deployed on the EKS cluster too.   <br>
 
-To confirm this , run the following commands inside the docker image:
-kubectl get pods -n opendelta
-kubectl get svc -n opendelta
-You should see the following:
+To confirm this , run the following commands inside the docker image:   <br>
+kubectl get pods -n opendelta   <br>
+kubectl get svc -n opendelta   <br>
+You should see the following:   <br>
 
 ![alt text](image-9.png)    <br>
  
 
-Now please Navigate to your AWS Management Console, and select Region EU-WEST-2:
+Now please Navigate to your AWS Management Console, and select Region EU-WEST-2:   <br>
 
  ![alt text](image-10.png)    <br>
 
-Now please Navigate to EC2:  
+Now please Navigate to EC2:     <br>
 
 ![alt text](image-11.png)    <br>
 
@@ -149,31 +149,31 @@ And go to Load Balancers section:
 
 ![alt text](image-12.png)    <br>
 
- You should be able to see an Application Load Balancer named k8s-load-balancer, please copy the DNS name.
+ You should be able to see an Application Load Balancer named k8s-load-balancer, please copy the DNS name.   <br>
 
-Once you have copied the DNS name, enter it in your browser: 
+Once you have copied the DNS name, enter it in your browser:    <br>
 
 ![alt text](image-13.png)    <br>
 
-After giving 5 minutes to the target groups to register, you can follow the ALB DNS in your browser ,  you will be able to see the Hello World application with a 200 response:
+After giving 5 minutes to the target groups to register, you can follow the ALB DNS in your browser ,  you will be able to see the Hello World application with a 200 response:   <br>
 
 ![alt text](image-14.png)    <br>
  
 
-If you are not able to see the above, please monitor the target group attached to the ALB:
+If you are not able to see the above, please monitor the target group attached to the ALB:   <br>
 
 ![alt text](image-15.png)    <br>
  
 
-Please Ensure All registered targets have a Healthy status:  
+Please Ensure All registered targets have a Healthy status:     <br>
 
 ![alt text](image-16.png)    <br>
 
-If they do not have a Healthy Status, please consider Degistering them and registering them as targets again on port 30080.
+If they do not have a Healthy Status, please consider Degistering them and registering them as targets again on port 30080.   <br>
 
 
 
 
 
-If you have any issue running this exercise please contact me.
+If you have any issue running this exercise please contact me.   <br>
 
